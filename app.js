@@ -1,16 +1,16 @@
 const elementById = (id) => {
     return document.getElementById(id);
 }
+
 const handleSearch = () => {
     const inputFiled = elementById('input-filed');
-
     const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${inputFiled.value}`;
-
     fetch(url)
         .then(res => res.json())
         .then(data => showArtists(data))
 
-
+    //clear inputFiled
+    inputFiled.value = "";
 }
 
 const showArtists = (data) => {
@@ -49,12 +49,23 @@ const displayAlbums = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => displayAlbum(data.album))
-    // console.log(id)
 }
 
 const displayAlbum = (data) => {
+    const albumContainer = elementById('albums');
+
     data.forEach(album => {
-        console.log(album)
+        const div = document.createElement('div');
+        div.classList.add('album')
+
+        div.innerHTML = `
+         <div class="album-image-container">
+           <img src="${album.strAlbumThumb ? album.strAlbumThumb : "https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-avatar-placeholder-abstract-white-blue-green-png-image_3918476.jpg"}" alt="" />
+         </div>
+         <div class="album-name">
+           <h3>${album.strAlbum}</h3>
+         </div>
+`;
+        albumContainer.appendChild(div)
     })
-    // console.log(data)
 }
