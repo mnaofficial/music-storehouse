@@ -36,7 +36,7 @@ const showArtists = (data) => {
               <p>Country: ${artist.strCountry ? artist.strCountry : "Not Available"}</p>
               <p>Style: ${artist.strGenre ? artist.strGenre : "Not Available"}</p>
            </div>
-           <button onclick="showAlbums('${artist.idArtist}')" class="album-button">
+           <button onclick="displayAlbums('${artist.idArtist}')" class="album-button">
                <i class="fa-solid fa-compact-disc"></i>
                <p class="button-title">Albums</p>
            </button>`;
@@ -44,10 +44,17 @@ const showArtists = (data) => {
     });
 }
 
-const showAlbums = (id) => {
+const displayAlbums = (id) => {
     const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => displayAlbum(data.album))
     // console.log(id)
+}
+
+const displayAlbum = (data) => {
+    data.forEach(album => {
+        console.log(album)
+    })
+    // console.log(data)
 }
