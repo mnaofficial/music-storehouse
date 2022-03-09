@@ -9,13 +9,15 @@ const handleSearch = () => {
         .then(res => res.json())
         .then(data => showArtists(data))
 
-    //clear inputFiled
+    //clear inputFiled when search new value.
     inputFiled.value = "";
 }
 
 const showArtists = (data) => {
     const artistContainer = elementById('artists');
     const artists = data.artists;
+    //clear artists container when search new artists.
+    artistContainer.innerHTML = "";
 
     artists.forEach(artist => {
         /* or:============================
@@ -42,6 +44,7 @@ const showArtists = (data) => {
            </button>`;
         artistContainer.appendChild(div);
     });
+
 }
 
 const displayAlbums = (id) => {
