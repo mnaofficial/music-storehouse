@@ -36,14 +36,18 @@ const showArtists = (data) => {
               <p>Country: ${artist.strCountry ? artist.strCountry : "Not Available"}</p>
               <p>Style: ${artist.strGenre ? artist.strGenre : "Not Available"}</p>
            </div>
-           <button onclick="showAlbum()" class="album-button">
+           <button onclick="showAlbums('${artist.idArtist}')" class="album-button">
                <i class="fa-solid fa-compact-disc"></i>
-               <p onclick="fetchAlbums('${artist.idArtist}')" class="button-title">Albums</p>
+               <p class="button-title">Albums</p>
            </button>`;
         artistContainer.appendChild(div);
     });
 }
 
-const showAlbum = () => {
-    console.log('akhhgggh')
+const showAlbums = (id) => {
+    const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => console.log(data))
+    // console.log(id)
 }
