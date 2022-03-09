@@ -14,9 +14,7 @@ const handleSearch = () => {
 }
 
 const showArtists = (data) => {
-
     const artistContainer = elementById('artists');
-
     const artists = data.artists;
 
     artists.forEach(artist => {
@@ -38,15 +36,14 @@ const showArtists = (data) => {
               <p>Country: ${artist.strCountry ? artist.strCountry : "Not Available"}</p>
               <p>Style: ${artist.strGenre ? artist.strGenre : "Not Available"}</p>
            </div>
-           <button class="album-button">
+           <button onclick="showAlbum()" class="album-button">
                <i class="fa-solid fa-compact-disc"></i>
                <p onclick="fetchAlbums('${artist.idArtist}')" class="button-title">Albums</p>
            </button>`;
-
         artistContainer.appendChild(div);
-
-
-        // console.log(artistContainer)
-        console.log(div)
     });
+}
+
+const showAlbum = () => {
+    console.log('akhhgggh')
 }
