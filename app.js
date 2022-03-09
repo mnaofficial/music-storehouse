@@ -2,31 +2,46 @@ const elementById = (id) => {
     return document.getElementById(id);
 }
 
-const handleSearch = () => {
-    const inputFiled = elementById('input-filed');
-    const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${inputFiled.value}`;
+/*===============================
+   search field container area 
+================================*/
+const searchField = () => {
+    //input container Field 
+    const inputField = elementById('input-field');
+    //artists container Field
+    const artistContainer = elementById('artists');
+    //albums container Field
+    const albumContainer = elementById('albums');
+
+    const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${inputField.value}`;
     fetch(url)
         .then(res => res.json())
         .then(data => showArtists(data))
 
-    //clear inputFiled when search new value.
-    inputFiled.value = "";
-}
+    //clear inputField when search new value.
+    inputField.value = "";
+    //clear artists container when search new artists.
+    artistContainer.innerHTML = "";
+    //clear albums container when search new albums.
+    albumContainer.innerHTML = "";
+};
 
+/*================================
+     artists container area 
+ =================================*/
 const showArtists = (data) => {
     const artistContainer = elementById('artists');
     const artists = data.artists;
-    //clear artists container when search new artists.
-    artistContainer.innerHTML = "";
 
     artists.forEach(artist => {
-        /* or:============================
+        /* or:------------------------------
         const showArtists = ({artists}) => {
             artists.forEach(artist => { }
-        ==================================*/
+        ------------------------------------*/
         const div = document.createElement('div');
         div.classList.add('artist-card')
 
+        //artists card
         div.innerHTML = `
             <div class="image-container">
               <div class="image-container-inner">
@@ -46,15 +61,27 @@ const showArtists = (data) => {
     });
 
 }
-
+/*===============================
+   Display all Album container
+=================================*/
 const displayAlbums = (id) => {
+    //albums container Field
+    const albumContainer = elementById('albums');
+
     const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
     fetch(url)
         .then(res => res.json())
         .then(data => displayAlbum(data.album))
+
+    //clear albums container when search new albums.
+    albumContainer.innerHTML = "";
 }
 
+/*================================= 
+    Display Album container
+===================================*/
 const displayAlbum = (data) => {
+    //albums container Field
     const albumContainer = elementById('albums');
 
     data.forEach(album => {
